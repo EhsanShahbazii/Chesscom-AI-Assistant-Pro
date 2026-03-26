@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Grandmaster AI - Chess Assistant Pro",
+  "version": "3.0.0",
+  "author": "Ehsan Shahbazi",
+  "homepage_url": "https://github.com/EhsanShahbazii",
+  "description": "Next-generation world-scale AI chess analysis assistant engineered by Ehsan Shahbazi. Auto-Hybrid multi-engine routing (Stockfish 16+, Lichess Cloud GM AI, Syzygy 7-Piece Tablebase), dynamic depth scaling, real-time telemetry, and organic stealth execution.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://stockfish.online/*",
+    "https://lichess.org/*",
+    "https://tablebase.lichess.ovh/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.chess.com/*",
+        "https://lichess.org/*"
+      ],
+      "css": [
+        "src/ui/style.css"
+      ],
+      "js": [
+        "src/core/openings.js",
+        "src/core/engine.js",
+        "src/ui/ui.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+}
