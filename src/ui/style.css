@@ -1,0 +1,1170 @@
+/**
+ * Grandmaster AI Chess Assistant - Stylesheet
+ * Designed & Developed by Ehsan Shahbazi
+ * Version: 3.0 Pro
+ * Theme: Chess.com Premium Dark & Emerald Knight
+ * GitHub: https://github.com/EhsanShahbazii
+ */
+
+:root {
+  /* Chess.com Authentic Color Palette */
+  --ch-chess-green: #81b64c;
+  --ch-chess-green-hover: #a3d160;
+  --ch-chess-green-dark: #457524;
+  --ch-chess-green-glow: rgba(129, 182, 76, 0.35);
+
+  --ch-bg-root: #262421;
+  --ch-bg-card: #302e2b;
+  --ch-bg-card-hover: #383531;
+  --ch-bg-inner: #1e1c18;
+
+  --ch-border-subtle: rgba(255, 255, 255, 0.08);
+  --ch-border-card: #3d3b37;
+  --ch-border-focus: #81b64c;
+
+  --ch-text-primary: #ffffff;
+  --ch-text-secondary: #b2b1af;
+  --ch-text-muted: #8b8987;
+
+  --ch-accent-red: #fa412d;
+  --ch-accent-blue: #3b82f6;
+  --ch-accent-gold: #f5b700;
+
+  --ch-font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Helvetica, Arial, sans-serif;
+  --ch-radius-sm: 6px;
+  --ch-radius-md: 10px;
+  --ch-radius-lg: 14px;
+  --ch-shadow-pop: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.15);
+  --ch-transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================================
+ * FLOATING BUBBLE (DRAGGABLE)
+ * ========================================================================= */
+
+#chess-helper-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2147483640;
+  font-family: var(--ch-font);
+  pointer-events: none;
+}
+
+#chess-helper-bubble {
+  position: fixed;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #302e2b, #1e1c18);
+  border: 2px solid var(--ch-chess-green);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 14px var(--ch-chess-green-glow);
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  touch-action: none;
+  transition: transform 0.1s ease-out, box-shadow 0.2s ease;
+  z-index: 2147483645;
+}
+
+#chess-helper-bubble:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.8), 0 0 20px var(--ch-chess-green-glow);
+}
+
+#chess-helper-bubble:active {
+  cursor: grabbing;
+  transform: scale(0.96);
+}
+
+.ch-bubble-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--ch-chess-green);
+}
+
+.ch-bubble-inner svg {
+  width: 28px;
+  height: 28px;
+}
+
+.ch-bubble-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: var(--ch-bg-root);
+  color: var(--ch-chess-green);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 10px;
+  border: 1px solid var(--ch-chess-green);
+  line-height: 1.2;
+}
+
+/* =========================================================================
+ * MAIN DASHBOARD PANEL (420PX WIDE, CHESS.COM PALETTE)
+ * ========================================================================= */
+
+#chess-helper-panel {
+  position: fixed;
+  width: 480px;
+  min-width: 480px;
+  max-width: 480px;
+  height: 520px;
+  min-height: 520px;
+  max-height: 520px;
+  background: var(--ch-bg-root);
+  border: 1px solid var(--ch-border-card);
+  border-radius: var(--ch-radius-lg);
+  box-shadow: var(--ch-shadow-pop);
+  color: var(--ch-text-primary);
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  opacity: 0;
+  transform: scale(0.94);
+  visibility: hidden;
+  transition: var(--ch-transition);
+  z-index: 2147483646;
+  box-sizing: border-box;
+  overflow: hidden !important;
+}
+
+#chess-helper-panel.visible {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+}
+
+/* Header */
+.ch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #1e1c18;
+  border-bottom: 1px solid var(--ch-border-subtle);
+}
+
+.ch-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ch-title {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+}
+
+.ch-badge-pro {
+  background: var(--ch-chess-green);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.ch-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ch-status-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.ch-status-indicator.active-turn {
+  background: var(--ch-chess-green);
+  box-shadow: 0 0 10px var(--ch-chess-green);
+}
+
+.ch-status-indicator.opponent-turn {
+  background: var(--ch-accent-red);
+  box-shadow: 0 0 10px var(--ch-accent-red);
+}
+
+.ch-btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--ch-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: var(--ch-transition);
+}
+
+.ch-btn-icon:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* Navigation Tabs */
+.ch-nav-tabs {
+  display: flex;
+  background: #211f1c;
+  border-bottom: 1px solid var(--ch-border-subtle);
+  padding: 3px 6px;
+  gap: 3px;
+}
+
+.ch-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--ch-text-secondary);
+  font-family: var(--ch-font);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 9px 4px;
+  cursor: pointer;
+  border-radius: var(--ch-radius-sm);
+  transition: var(--ch-transition);
+}
+
+.ch-tab-btn svg {
+  stroke-width: 2.2;
+}
+
+.ch-tab-btn:hover {
+  color: var(--ch-text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ch-tab-btn.active {
+  color: #ffffff;
+  background: var(--ch-bg-card);
+  box-shadow: inset 0 -2px 0 var(--ch-chess-green);
+}
+
+.ch-tab-btn.active svg {
+  color: var(--ch-chess-green);
+}
+
+/* Tab Contents */
+.ch-tab-content {
+  display: none !important;
+  padding: 12px 14px;
+  flex-direction: column;
+  gap: 10px;
+  height: 425px;
+  min-height: 425px;
+  max-height: 425px;
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
+.ch-tab-content.active {
+  display: flex !important;
+}
+
+/* =========================================================================
+ * PLAY TAB FULL-HEIGHT EXPANDED BEST LINE WORKSTATION
+ * ========================================================================= */
+
+#tab-dashboard.active {
+  display: flex !important;
+  flex-direction: column;
+  height: 425px;
+  min-height: 425px;
+  max-height: 425px;
+  overflow: hidden !important;
+}
+
+#tab-dashboard .ch-card-eval {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#tab-dashboard .ch-continuation-box {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--ch-radius-sm);
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+#tab-dashboard .ch-continuation {
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ch-chess-green-hover);
+  word-break: break-word;
+}
+
+/* Custom Chess.com Style Scrollbars */
+#chess-helper-panel *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+#chess-helper-panel *::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+#chess-helper-panel *::-webkit-scrollbar-thumb {
+  background: var(--ch-chess-green-dark);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: background 0.2s ease;
+}
+
+#chess-helper-panel *::-webkit-scrollbar-thumb:hover {
+  background: var(--ch-chess-green);
+}
+
+/* Model Banner (Home Page) */
+.ch-model-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1e1c18;
+  border: 1px solid var(--ch-border-card);
+  border-radius: var(--ch-radius-md);
+  padding: 8px 12px;
+  font-size: 11px;
+}
+
+.ch-model-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ch-model-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ch-chess-green);
+  box-shadow: 0 0 6px var(--ch-chess-green);
+}
+
+.ch-model-title {
+  font-weight: 700;
+  color: var(--ch-text-secondary);
+}
+
+.ch-model-name {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* Cards */
+.ch-card {
+  background: var(--ch-bg-card);
+  border: 1px solid var(--ch-border-card);
+  border-radius: var(--ch-radius-md);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.ch-card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ch-card-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ch-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Evaluation Top */
+.ch-eval-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ch-eval-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ch-eval-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ch-text-primary);
+}
+
+.ch-eval-depth-tag {
+  font-size: 11px;
+  color: var(--ch-text-muted);
+}
+
+.ch-eval-badge {
+  font-size: 15px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ch-badge-neutral {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.ch-badge-white-win {
+  background: rgba(129, 182, 76, 0.2);
+  color: var(--ch-chess-green);
+  border: 1px solid rgba(129, 182, 76, 0.4);
+}
+
+.ch-badge-black-win {
+  background: rgba(250, 65, 45, 0.2);
+  color: #ff6b5b;
+  border: 1px solid rgba(250, 65, 45, 0.4);
+}
+
+.ch-badge-mate-white {
+  background: var(--ch-chess-green);
+  color: #fff;
+}
+
+.ch-badge-mate-black {
+  background: var(--ch-accent-red);
+  color: #fff;
+}
+
+/* Win Bar */
+.ch-win-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: #111;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ch-win-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fff, var(--ch-chess-green));
+  transition: width 0.3s ease;
+}
+
+.ch-win-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ch-text-muted);
+  font-weight: 600;
+}
+
+/* Opening & Line */
+.ch-info-row {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 7px 10px;
+  border-radius: var(--ch-radius-sm);
+  overflow: hidden;
+}
+
+.ch-info-tag {
+  color: var(--ch-chess-green);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ch-info-val {
+  color: #ffffff;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ch-continuation-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 8px 10px;
+  border-radius: var(--ch-radius-sm);
+}
+
+.ch-continuation-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--ch-text-secondary);
+  text-transform: uppercase;
+}
+
+.ch-continuation {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--ch-chess-green-hover);
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* Form Controls & Toggles */
+.ch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ch-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ch-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ch-text-primary);
+}
+
+.ch-sublabel {
+  font-size: 10px;
+  color: var(--ch-text-muted);
+  line-height: 1.2;
+}
+
+.ch-setting-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ch-setting-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ch-text-secondary);
+}
+
+.ch-setting-header strong {
+  color: var(--ch-chess-green);
+}
+
+.ch-select {
+  width: 100%;
+  background: #1e1c18;
+  border: 1px solid var(--ch-border-card);
+  color: var(--ch-text-primary);
+  font-family: var(--ch-font);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: var(--ch-radius-sm);
+  outline: none;
+  cursor: pointer;
+  transition: var(--ch-transition);
+}
+
+.ch-select:hover, .ch-select:focus {
+  border-color: var(--ch-chess-green);
+}
+
+/* Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ch-chess-green);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  box-shadow: 0 0 6px var(--ch-chess-green-glow);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: var(--ch-chess-green-hover);
+}
+
+/* Switch Toggle */
+.ch-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.ch-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: .2s ease;
+  border-radius: 20px;
+}
+
+.ch-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #e2e8f0;
+  transition: .2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 50%;
+}
+
+input:checked + .ch-slider {
+  background-color: var(--ch-chess-green);
+}
+
+input:checked + .ch-slider:before {
+  transform: translateX(18px);
+  background: #fff;
+}
+
+/* Buttons */
+.ch-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ch-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: var(--ch-radius-md);
+  border: 1px solid var(--ch-border-card);
+  background: #383531;
+  color: var(--ch-text-primary);
+  font-family: var(--ch-font);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--ch-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.ch-btn:hover {
+  background: #44413d;
+  transform: translateY(-1px);
+}
+
+.ch-btn:active {
+  transform: translateY(0);
+}
+
+.ch-btn-primary {
+  background: var(--ch-chess-green);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 14px var(--ch-chess-green-glow);
+}
+
+.ch-btn-primary:hover {
+  background: var(--ch-chess-green-hover);
+  box-shadow: 0 6px 18px var(--ch-chess-green-glow);
+}
+
+.ch-btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ch-text-secondary);
+}
+
+.ch-btn-panic {
+  background: rgba(250, 65, 45, 0.15);
+  color: #ff6b5b;
+  border: 1px solid rgba(250, 65, 45, 0.3);
+}
+
+.ch-btn-panic:hover {
+  background: rgba(250, 65, 45, 0.25);
+  border-color: rgba(250, 65, 45, 0.6);
+}
+
+/* =========================================================================
+ * TAB 3: STATUS / TELEMETRY (NO TEXT WRAP & CLEAN PAGINATION)
+ * ========================================================================= */
+
+.ch-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ch-stat-box {
+  background: #211f1c;
+  border: 1px solid var(--ch-border-subtle);
+  border-radius: var(--ch-radius-md);
+  padding: 10px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ch-stat-num {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--ch-chess-green);
+  font-variant-numeric: tabular-nums;
+}
+
+.ch-stat-lbl {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--ch-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.ch-api-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ch-api-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ch-api-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.ch-api-name {
+  color: var(--ch-text-primary);
+  font-weight: 600;
+}
+
+.ch-badge-healthy {
+  background: rgba(129, 182, 76, 0.2);
+  color: var(--ch-chess-green);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.ch-badge-error {
+  background: rgba(250, 65, 45, 0.2);
+  color: #ff6b5b;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.ch-latency-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ch-latency-fill {
+  height: 100%;
+  background: var(--ch-chess-green);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Pagination */
+.ch-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ch-page-btn {
+  background: #211f1c;
+  border: 1px solid var(--ch-border-card);
+  color: var(--ch-text-secondary);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--ch-transition);
+}
+
+.ch-page-btn:hover:not(:disabled) {
+  background: #383531;
+  color: #fff;
+  border-color: var(--ch-chess-green);
+}
+
+.ch-page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.ch-page-indicator {
+  font-size: 10px;
+  color: var(--ch-text-muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ch-logs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 90px;
+  max-height: 96px;
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 10px;
+}
+
+.ch-log-entry {
+  display: flex;
+  gap: 6px;
+  padding: 2px 0;
+  line-height: 1.25;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ch-log-time {
+  color: var(--ch-text-muted);
+  flex-shrink: 0;
+}
+
+.ch-log-engine {
+  color: var(--ch-chess-green);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ch-log-msg {
+  color: var(--ch-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ch-log-success { color: var(--ch-text-secondary); }
+.ch-log-error { color: #ff6b5b; }
+.ch-log-failover { color: var(--ch-accent-gold); }
+
+/* =========================================================================
+ * TAB 5: ABOUT & GITHUB
+ * ========================================================================= */
+
+
+/* Disclaimer Card in About Tab */
+.ch-disclaimer-card {
+  background: rgba(245, 183, 0, 0.05);
+  border: 1px solid rgba(245, 183, 0, 0.22);
+  padding: 7px 10px;
+  gap: 4px;
+}
+
+.ch-disclaimer-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ch-accent-gold);
+}
+
+.ch-disclaimer-header svg {
+  color: var(--ch-accent-gold);
+  flex-shrink: 0;
+  stroke-width: 2.4;
+}
+
+.ch-disclaimer-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ch-disclaimer-text {
+  font-size: 11px;
+  color: var(--ch-text-primary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ch-disclaimer-text strong {
+  color: #fff;
+}
+
+.ch-disclaimer-subtext {
+  font-size: 10px;
+  color: var(--ch-text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ch-about-card {
+  align-items: center;
+  text-align: center;
+  padding: 8px 10px;
+  gap: 6px;
+}
+
+.ch-about-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ch-about-desc {
+  font-size: 11px;
+  color: var(--ch-text-secondary);
+  line-height: 1.4;
+}
+
+.ch-github-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: #1e1c18;
+  border: 1px solid var(--ch-border-card);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: var(--ch-radius-md);
+  font-size: 11px;
+  font-weight: 700;
+  transition: var(--ch-transition);
+  box-sizing: border-box;
+}
+
+.ch-github-btn:hover {
+  background: #2a2723;
+  border-color: var(--ch-chess-green);
+  transform: translateY(-1px);
+  color: var(--ch-chess-green-hover);
+}
+
+.ch-shortcut-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ch-shortcut-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--ch-text-secondary);
+}
+
+.ch-shortcut-item kbd {
+  background: #1e1c18;
+  border: 1px solid var(--ch-border-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--ch-chess-green);
+  font-family: monospace;
+  font-weight: 700;
+}
+
+
+
+/* =========================================================================
+ * CHESS.COM PREMIUM VECTOR ARROWS & SQUARES
+ * ========================================================================= */
+
+.ch-highlight {
+  position: absolute;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 3px;
+  transition: opacity 0.2s ease;
+}
+
+.ch-sq-from {
+  background-color: rgba(245, 183, 0, 0.35);
+  box-shadow: inset 0 0 10px rgba(245, 183, 0, 0.7);
+}
+
+.ch-sq-to {
+  background-color: rgba(129, 182, 76, 0.45);
+  box-shadow: inset 0 0 12px rgba(129, 182, 76, 0.8);
+}
+
+.ch-arrow-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6));
+}
+
+.ch-premium-arrow {
+  stroke: var(--ch-chess-green);
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.92;
+}
+
+.ch-arrow-dot {
+  fill: var(--ch-chess-green);
+}
+
+/* =========================================================================
+ * CHESS.COM AD ELIMINATION & FULL WINDOW LAYOUT
+ * ========================================================================= */
+
+#board-layout-ad,
+.board-layout-ad,
+#sidebar-ad,
+.skyscraper-ad-component,
+.skyscraper-ad-slot,
+[id^="skyscraper"],
+.ad-upgrade-link-monetization-button,
+[id^="google_ads_iframe"],
+.outstream-ima-player,
+div.ahover,
+.upo-label,
+.ad-container,
+.ad-wrapper,
+.ads-layout,
+.ad-banner,
+#widget-alert-flash.alerts-container:empty {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  min-width: 0px !important;
+  max-width: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  border: 0px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+:root,
+body.board-layout,
+.board-layout {
+  --boardLayoutAdWidth: 0px !important;
+  --boardLayoutAdMinWidth: 0px !important;
+  --board-layout-ad-width: 0px !important;
+  --board-layout-ad-min-width: 0px !important;
+}
+
+body.board-layout,
+.board-layout {
+  display: grid !important;
+  grid-template-areas:
+    "nav main sidebar" !important;
+  grid-template-columns: var(--board-layout-nav-width, 140px) 1fr minmax(380px, 440px) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+.board-layout-nav {
+  grid-area: nav !important;
+}
+
+#board-layout-main,
+.board-layout-main {
+  grid-area: main !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+#board-layout-chessboard,
+.board-layout-chessboard {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+#board-layout-sidebar,
+.board-layout-sidebar {
+  grid-area: sidebar !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 380px !important;
+  max-width: 440px !important;
+  height: 100% !important;
+  margin: 0 !important;
+}
