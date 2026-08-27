@@ -197,6 +197,12 @@ flowchart TD
 
 ---
 
+## 🙏 Acknowledgments & Inspiration
+
+- This project is inspired by the early work from [karbaladevir/chess-extension-ai](https://github.com/karbaladevir/chess-extension-ai).
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
