@@ -97,6 +97,17 @@ Built with an authentic **Chess.com Dark Emerald** palette, the extension featur
 
 ---
 
+### 6. 🚫 Ad-Free Clean Board Layout Optimizer
+<p align="center">
+  <img src="assets/screenshots/no-ads.png" alt="Ad-Free Clean Board Layout Optimizer" width="100%" />
+</p>
+
+- **Zero-Distraction Layout**: Automatically zeroes out and eliminates all Chess.com skyscraper ads, banners, and promotional containers (`#board-layout-ad`, `#sidebar-ad`, `.skyscraper-ad-component`).
+- **Centered Responsive Chessboard**: Automatically centers the active game board in the primary viewport while preserving the full-width move history sidebar and fixed navigation.
+- **Maximized Board Space**: Utilizes the full browser width for a grandmaster-grade match experience.
+
+---
+
 ## 🏗️ System Architecture
 
 ```mermaid
