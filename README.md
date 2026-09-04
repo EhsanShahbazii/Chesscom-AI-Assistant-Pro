@@ -1,5 +1,12 @@
 # 👑 Grandmaster AI — Chess Assistant Pro (v3.0)
 
+> [!CAUTION]
+> **PAY ATTENTION: ACCOUNT BAN ALERT**
+>
+> Using this extension during live, rated matches against human players on **Chess.com**, **Lichess.org**, or other platforms constitutes a direct violation of their Fair Play Policies and Terms of Service. 
+>
+> Platform anti-cheat algorithms monitor behavioral telemetry, engine correlation, and input timing. **Improper use will result in permanent account suspension and hardware/IP bans.** Use this software exclusively for post-game analysis, offline studies, opening preparation, or against unrated bots.
+
 <p align="center">
   <img src="assets/screenshots/preview.png" alt="Grandmaster AI Pro Preview" width="100%" />
 </p>
@@ -129,93 +136,3 @@ flowchart TD
     J -->|"Micro-Jitter + Bezier Curves"| K["Chess.com / Lichess Board DOM"]
     
     H --> L["Real-Time Telemetry & Health Tracker"]
-```
-
----
-
-## 📂 Modular Project Structure
-
-```
-├── manifest.json              # Chrome Extension Manifest (V3)
-├── src/
-│   ├── core/
-│   │   ├── engine.js          # Hybrid engine router, failover cascade & dynamic depth
-│   │   └── openings.js        # ECO Opening book database (40+ variations)
-│   ├── ui/
-│   │   ├── ui.js              # 5-Tab glassmorphic HUD, telemetry monitor & vector overlays
-│   │   └── style.css          # Authentic Chess.com dark emerald theme (480px locked, no-scroll)
-│   └── utils/
-│       └── dom-helpers.js     # Safe DOM coordinate resolvers & ad eliminator
-├── assets/
-│   ├── icons/
-│   │   ├── icon16.png         # 16x16 HD Icon
-│   │   ├── icon48.png         # 48x48 HD Icon
-│   │   └── icon128.png        # 128x128 HD Icon
-│   └── screenshots/
-│       ├── preview.png        # Extension preview banner
-│       ├── tab-play.png       # Play tab screenshot
-│       ├── tab-engine.png     # Engine configuration tab screenshot
-│       ├── tab-status.png     # Telemetry & status tab screenshot
-│       ├── tab-stealth.png    # Stealth & humanization tab screenshot
-│       └── tab-about.png      # About tab screenshot
-├── docs/
-│   ├── ARCHITECTURE.md        # Technical architecture & multi-engine cascade reference
-│   └── API_REFERENCE.md       # API endpoint details & response schemas
-├── LICENSE                    # MIT License (Copyright 2026 Ehsan Shahbazi)
-└── README.md                  # Project documentation
-```
-
----
-
-## ⌨️ Keyboard Shortcuts
-
-| Shortcut | Action | Description |
-| :--- | :--- | :--- |
-| <kbd>Alt</kbd> + <kbd>A</kbd> | **Analyze Best Move** | Instantly calculates and visualizes the best continuation for the current position |
-| <kbd>Alt</kbd> + <kbd>S</kbd> | **Toggle Auto-Play** | Enables or pauses automatic move execution with humanized timing |
-| <kbd>Alt</kbd> + <kbd>C</kbd> | **Clear Overlays** | Clears all board highlights and vector arrows immediately |
-| <kbd>Alt</kbd> + <kbd>H</kbd> | **Stealth Panic Mode** | Instantly hides or restores the entire HUD and visual markers |
-
----
-
-## 🚀 Installation Guide
-
-### Chrome / Brave / Edge (Chromium)
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/EhsanShahbazii/Chesscom-AI-Assistant-Pro.git
-   ```
-2. Open your browser and navigate to `chrome://extensions/`.
-3. Enable **Developer mode** in the top-right corner.
-4. Click **Load unpacked** and select the extension root directory.
-5. Open [Chess.com](https://www.chess.com) or [Lichess.org](https://lichess.org) and launch a game. The floating bubble will appear automatically!
-
----
-
-## 🛡️ Training & Fair Play Disclaimer
-
-> [!IMPORTANT]
-> **Grandmaster AI** is engineered strictly for **educational training, opening preparation, bot sparring, and post-game tactical analysis**.
->
-> Please respect the fair play guidelines and terms of service of online chess platforms. Do not use automated moves or live engine assistance during rated competitive matches against human opponents.
-
----
-
-## 👨‍💻 Author & Credits
-
-- **Architect & Lead Developer**: **Ehsan Shahbazi**
-- **GitHub**: [@EhsanShahbazii](https://github.com/EhsanShahbazii)
-
----
-
-## 🙏 Acknowledgments & Inspiration
-
-- This project is inspired by the early work from [karbaladevir/chess-extension-ai](https://github.com/karbaladevir/chess-extension-ai).
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-Copyright (c) 2026 **Ehsan Shahbazi**.
